@@ -1,8 +1,6 @@
 <template>
    <AdminLayout>
-
        <ProductList :products = "products" ></ProductList>
-        
    </AdminLayout>
 </template>
 

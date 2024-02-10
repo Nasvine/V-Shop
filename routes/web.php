@@ -10,6 +10,9 @@ use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\User\CheckoutController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\admin\AdminAuthController;
+use App\Http\Controllers\admin\BrandController;
+use App\Http\Controllers\admin\CategoryController;
+use App\Http\Controllers\User\ContactController;
 use App\Http\Controllers\User\ProductListController;
 
 /*
@@ -30,7 +33,7 @@ Route::get('/', [UserController::class, 'index'])->name('user.home');
 Route::get('/dashboard',[DashboardController::class,'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/about', [DashboardController::class, 'about'])->name('user.about');
 Route::get('/contact', [DashboardController::class, 'contact_index'])->name('user.contact.index');
-Route::post('/contact/store', [DashboardController::class, 'contact_store'])->name('user.contact.store');
+Route::post('/contact/store', [ContactController::class, 'store'])->name('user.contact.store');
 
 Route::middleware('auth')->group(function () {  
 
@@ -86,6 +89,18 @@ Route::middleware('auth', 'admin')->prefix('admin')->group(function () {
         Route::put('/products/update/{id}',[ProductController::class,'update'])->name('admin.products.update');
         Route::delete('/products/image/{id}',[ProductController::class,'deleteImage'])->name('admin.products.image.delete');
         Route::delete('/products/destory/{id}',[ProductController::class,'destory'])->name('admin.products.destory');
+
+        //brands routes 
+        Route::get('/brands', [BrandController::class, 'index'])->name('admin.brands.index');
+        Route::post('/brands/store',[BrandController::class,'store'])->name('admin.brands.store');
+        Route::put('/brands/update/{id}',[BrandController::class,'update'])->name('admin.brands.update');
+        Route::delete('/brands/destory/{id}',[BrandController::class,'destory'])->name('admin.brands.destory');
+        
+        //categories routes 
+        Route::get('/categories', [CategoryController::class, 'index'])->name('admin.categories.index');
+        Route::post('/categories/store',[CategoryController::class,'store'])->name('admin.categories.store');
+        Route::put('/categories/update/{id}',[CategoryController::class,'update'])->name('admin.categories.update');
+        Route::delete('/categories/destory/{id}',[CategoryController::class,'destory'])->name('admin.categories.destory');
 });
 
 

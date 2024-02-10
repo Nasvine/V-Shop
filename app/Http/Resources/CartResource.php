@@ -18,6 +18,7 @@ class CartResource extends JsonResource
     public function toArray(Request $request): array
     {
         [$products, $cartItems] = $this->resource;
+        
         return [
             'count' => Cart::getCount(),
             'total' => $products->reduce(fn (?float $carry, Product $product) => $carry + $product->price * $cartItems[$product->id]['quantity']),

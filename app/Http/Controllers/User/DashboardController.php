@@ -6,12 +6,13 @@ use Inertia\Inertia;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $orders = Order::with('order_items.product.brand', 'order_items.product.category')->get();
+        $orders = Order::where('created_by', Auth::id())->with('order_items.product.brand', 'order_items.product.category')->get();
         return Inertia::render('User/Dashboard', ['orders' => $orders]);
     }
 
